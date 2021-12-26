@@ -58,7 +58,7 @@ export default defineComponent({
         const currentPost = {
             ...props.post,
             url: makeBlogUrl(props?.post?.slug ?? ''),
-            date: format(new Date(props?.post?.date ?? ''), 'yyyy-MM-dd'),
+            date: format(new Date(props?.post?.date ?? Date.now()), 'yyyy-MM-dd'),
             tags: props?.post?.tags?.map((tag) => ({
                 name: tag,
                 url: makeTagsUrl(tag),

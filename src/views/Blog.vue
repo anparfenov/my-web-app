@@ -1,7 +1,10 @@
 <template>
     <div class="blog">
         <h1 class="blog__title">{{ t('blog') }}</h1>
-        <blog-list v-if="blogList" :blog-list="blogList" />
+        <blog-list v-if="blogList && blogList.length > 0" :blog-list="blogList" />
+        <div v-else-if="blogList && blogList.length === 0">
+            Нет статей
+        </div>
         <div v-else-if="error">
             {{ error }}
         </div>
@@ -12,7 +15,7 @@
 </template>
 
 <script>
-import { defineComponent, computed, onServerPrefetch, toRaw } from "vue";
+import { defineComponent, computed, onServerPrefetch } from "vue";
 import { useI18n } from "vue-i18n";
 import { useBlogStore } from "@/stores/blog";
 import BlogList from "@/components/BlogList.vue";

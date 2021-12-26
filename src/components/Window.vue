@@ -338,6 +338,7 @@ export default {
     --titlebar-height: 2rem;
 
     position: fixed;
+    z-index: 10;
     background-color: var(--color-terminal-black);
     color: var(--color-main);
     width: 24rem;

@@ -1,12 +1,14 @@
-import MarkdownIt from 'markdown-it';
-import MarkdownItAnchor from 'markdown-it-anchor';
-import MarkdownItFrontMatter from 'markdown-it-front-matter';
-import jsYaml from 'js-yaml';
+const MarkdownIt = require('markdown-it');
+const  MarkdownItAnchor = require('markdown-it-anchor');
+const MarkdownItFrontMatter = require('markdown-it-front-matter');
+const jsYaml = require('js-yaml');
+
+let frontMatter = null;
 
 // NOTE: maybe i should use promise
-export let frontMatter = null;
+let getFrontMatter = () => frontMatter;
 
-export let markdownLibrary = MarkdownIt({
+let markdownLibrary = MarkdownIt({
     html: true,
     breaks: true,
     linkify: true
@@ -15,3 +17,8 @@ export let markdownLibrary = MarkdownIt({
 }).use(MarkdownItFrontMatter, (_fm) => {
     frontMatter = jsYaml.load(_fm);
 });
+
+module.exports = {
+    getFrontMatter,
+    markdownLibrary
+}

@@ -1,9 +1,10 @@
-import { FastifyReply, FastifyRequest } from "fastify";
-
 import fs from 'fs';
 import path from 'path';
-import fastify from 'fastify';
+import fastify, { FastifyReply, FastifyRequest } from 'fastify';
 import fastifySensible from 'fastify-sensible';
+import fastifyCompress from 'fastify-compress';
+import fastifyStatic from 'fastify-static';
+import middie from 'middie';
 import { ViteDevServer, createServer as createViteServer } from "vite";
 
 import blog_routes from './server/routes/blog';
@@ -33,7 +34,7 @@ async function createServer(
             prettyPrint: !isProd,
         }
     });
-    await app.register(require("middie")); // connect like middlewares for vite
+    await app.register(middie); // connect like middlewares for vite
     app.register(fastifySensible); // http errors
     app.register(blog_routes, { prefix: API_PREFIX });
 
@@ -50,18 +51,12 @@ async function createServer(
         // @ts-ignore
         app.use(vite.middlewares);
     } else {
-        app.register(require("fastify-compress"), { global: false });
-        app.register(require("fastify-static"), {
+        app.register(fastifyCompress);
+        app.register(fastifyStatic, {
             root: resolve("dist/client"),
             wildcard: false, // dont forget to disable wildcard, because you won't get access to GET * handler
         });
     }
-
-    // app.register(require("fastify-http-proxy"), {
-    //     upstream: API_SERVER,
-    //     prefix: "/api", // it replaces api with nothing
-    //     rewritePrefix: "/api", // don't forget about it
-    // });
 
     app.get("*", async (request: FastifyRequest, reply: FastifyReply) => {
         app.log.info("App start");
@@ -81,7 +76,8 @@ async function createServer(
                 }
             } else {
                 template = indexProd;
-                render = require("./dist/server/entry-server.js").render;
+                // @ts-ignore
+                render = (await import("./dist/server/entry-server")).render;
             }
 
             const [appHtml, preloadLinks, initialState] = await render(url, manifest);

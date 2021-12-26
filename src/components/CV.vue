@@ -133,9 +133,6 @@ import { isToday, format } from "date-fns";
 import { FileDownloadIcon } from "vue-tabler-icons";
 import CustomLink from "@/components/CustomLink.vue";
 
- // TODO i will use static folder for images
-import { CMS_URL } from "@/config";
-
 export default {
     name: "MyCv",
     components: {
@@ -166,7 +163,7 @@ export default {
     },
     setup() {
         function getUniImageLink(image: string) {
-            return `${CMS_URL}/assets/${image}`;
+            return `/assets/${image}`;
         }
 
         function formatDate(date = new Date(), type = "start") {

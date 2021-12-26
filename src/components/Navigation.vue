@@ -16,7 +16,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, PropType, onUpdated } from "vue";
+import { defineComponent, computed, PropType } from "vue";
 import { useRoute, RouteRecord } from "vue-router";
 import { useI18n } from "vue-i18n";
 import CustomLink from "@/components/CustomLink.vue";
@@ -51,10 +51,6 @@ export default defineComponent({
                     route.path !== "/root"
             )
         );
-
-        onUpdated(() => {
-            console.log('nav routes', props.routes);
-        })
 
         return {
             handleClick,

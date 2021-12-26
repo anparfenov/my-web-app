@@ -42,7 +42,7 @@
 import { ref, nextTick, onMounted, onBeforeUnmount, onUpdated } from "vue";
 import { useRoute, useRouter } from "vue-router";
 
-import { parse, evaluate, deps as commandDeps } from "../terminal/command";
+import { parse, evaluate } from "../terminal/command";
 
 import MyWindow from "./Window.vue";
 
@@ -64,7 +64,6 @@ export default {
 
         const route = useRoute();
         const router = useRouter();
-        commandDeps.router = router;
 
         onMounted(() => {
             console.log('mounted');

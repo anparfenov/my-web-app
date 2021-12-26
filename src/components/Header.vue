@@ -12,15 +12,14 @@
         <!--     <LanguageIcon size="20" /> -->
         <!-- </button> -->
     </header>
-    <template v-if="!isSsr">
-        <teleport to="#dropdown-list">
-            <my-terminal
-                v-if="showTerminal"
-                :init-pos="terminalButtonBox"
-                :init-path="initPath"
-                @close="toggleTerminal"
-            />
-        </teleport>
+    <teleport to="#dropdown-list">
+        <my-terminal
+            v-if="showTerminal"
+            :init-pos="terminalButtonBox"
+            :init-path="initPath"
+            @close="toggleTerminal"
+        />
+    </teleport>
         <!-- <teleport to="#dropdown-list"> -->
         <!--     <my-dropdown v-show="showLang" ref="langDropdown" data-shadow> -->
         <!--         <dropdown-list -->
@@ -30,7 +29,6 @@
         <!--         /> -->
         <!--     </my-dropdown> -->
         <!-- </teleport> -->
-    </template>
 </template>
 
 <script lang="ts">

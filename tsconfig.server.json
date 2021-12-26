@@ -1,12 +1,7 @@
 {
-    "ts-node": {
-        "compilerOptions": {
-            "module": "commonjs"
-        }
-    },
     "compilerOptions": {
         "target": "esnext",
-        "module": "umd",
+        "module": "commonjs",
         "useDefineForClassFields": true,
         "moduleResolution": "node",
         "strict": true,
@@ -21,15 +16,7 @@
             "@/*": ["src/*"]
         }
     },
-    "include": [
-        "src/**/*.ts",
-        "src/**/*.tsx",
-        "src/**/*.vue",
-        "server.ts",
-        "server/**/*.ts",
-        "src/types/**/*.d.ts",
-        "types/**/*.d.ts"
-    ],
+    "include": ["server.ts"],
     "exclude": [
         "node_modules"
     ]

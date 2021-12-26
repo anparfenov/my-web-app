@@ -1,6 +1,6 @@
-import fs from 'fs-extra';
-import path from 'path';
-import { markdownLibrary, frontMatter } from '../services/markdown.js';
+const fs = require('fs-extra');
+const path = require('path');
+const { markdownLibrary, getFrontMatter } = require('../services/markdown.js');
 
 const CACHE_FILE = path.resolve('./server/cache/cache.json');
 const DIR_PATH = path.resolve('./server/md');
@@ -12,7 +12,7 @@ function buildCache() {
         const content = fs.readFileSync(path.resolve(DIR_PATH, file), 'utf-8');
         const md = markdownLibrary.render(content);
         const json = {
-            frontMatter,
+            frontMatter: getFrontMatter(),
             content: md
         }
         jsonList.push(json);

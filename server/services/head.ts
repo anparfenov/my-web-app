@@ -1,4 +1,3 @@
-// TODO move to the common services
 import { isRight } from 'fp-ts/Either';
 
 import { getBlogBySlug } from '../models/blog';
