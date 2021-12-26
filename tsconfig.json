@@ -1,0 +1,39 @@
+{
+    "ts-node": {
+        "compilerOptions": {
+            "module": "commonjs"
+        }
+    },
+    "compilerOptions": {
+        "target": "esnext",
+        "module": "esnext",
+        "useDefineForClassFields": true,
+        "moduleResolution": "node",
+        "strict": true,
+        "jsx": "preserve",
+        "sourceMap": true,
+        "resolveJsonModule": true,
+        "esModuleInterop": true,
+        "lib": ["esnext", "dom"],
+        "types": ["node"],
+        "declaration": true,
+        "typeRoots": ["node_modules/@types"],
+        "baseUrl": ".",
+        "paths": {
+            "@/*": ["src/*"]
+        }
+    },
+    "include": [
+        "src/**/*.ts",
+        "src/**/*.tsx",
+        "src/**/*.vue",
+        "server.ts",
+        "prerender.ts",
+        "server/**/*.ts",
+        "src/types/**/*.d.ts",
+        "types/**/*.d.ts"
+    ],
+    "exclude": [
+        "node_modules"
+    ]
+}

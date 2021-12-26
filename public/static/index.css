@@ -1,0 +1,195 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+   */
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        font-size: 100%;
+        font: inherit;
+        vertical-align: baseline;
+    }
+
+/* HTML5 display-role reset for older browsers */
+
+article, aside, details, figcaption, figure,
+    footer, header, hgroup, menu, nav, section {
+        display: block;
+    }
+
+:root {
+    --color-gray-100: hsl(0, 0%, 90%);
+    --color-gray-200: hsl(0, 0%, 85%);
+    --color-gray-300: hsl(0, 0%, 80%);
+    --color-gray-400: hsl(0, 0%, 70%);
+    --color-gray-500: hsl(0, 0%, 65%);
+    --color-gray-600: hsl(0, 0%, 60%);
+    --color-gray-700: hsl(0, 0%, 55%);
+    --color-gray-800: hsl(0, 0%, 40%);
+    --color-gray-900: hsl(0, 0%, 30%);
+
+    --color-warning: hsl(37, 79%, 60%);
+
+    --text-xs: 0.75rem;
+    --text-sm: 0.875rem;
+    --text-base: 1rem;
+    --text-lg: 1.25rem;
+    --text-xl: 1.5rem;
+    --text-xxl: 1.75rem;
+
+    --max-main-width: 70rem;
+    --max-header-width: 70rem;
+    --max-footer-width: 70rem;
+    --max-blog-post-width: 45rem;
+    --max-project-width: 45rem;
+    --max-content-width: 50rem;
+
+    --sans-serif: Raleway, Helvetica, Arial, sans-serif;
+    --serif: serif;
+    --monospace: 'JetBrains Mono', 'Roboto Mono', monospace;
+
+
+    --terminal-top: 30px;
+    --terminal-left: 30px;
+
+    --max-blog-width: 50rem;
+}
+
+html, body, * {
+    font-family: var(--sans-serif);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    box-sizing: border-box;
+}
+
+html, body {
+    padding: 0;
+    margin: 0;
+    min-height: 100vh;
+    line-height: 1.5;
+}
+
+body.light {
+    --color-main:           hsl(0, 0%, 97%);
+    --color-main-50:        hsl(79, 1%, 98%, 0.5);
+    --color-scnd:           hsl(0, 0%, 82%);
+    --color-accent:         hsl(135, 98%, 71%);
+    --color-accent-85:      hsl(135, 98%, 71%);
+    --color-extra:          hsl(209,100%,31%);
+    --color-extra-85:       hsl(209,100%,31%, 0.85);
+    --color-super-extra:    hsl(267,80%,31%, 1);
+    --color-border:         hsl(0, 0%, 62%);
+    --color-text:           hsl(0,0%,0%);
+    --color-text-50:        hsl(0, 0%, 0%, 0.5);
+    --color-text-inv:       hsl(100, 100%, 97%);
+    --color-error:          hsl(346,84%,61%);
+    --color-terminal-black: hsl(0, 0%, 18%);
+    --color-terminal-green: hsl(137, 93%, 53%);
+
+    /* TODO rename it */
+    --color-hover-80:   hsla(0, 0%, 90%, 0.8);
+    --color-light-55:   hsla(0,0%, 80%, 0.55);
+    --color-active:     hsl(0, 0%, 72%);
+    --color-drag:       hsl(0, 0%, 40%);
+    --color-shadow-15:  hsla(0,0%,0%, 0.15);
+
+    --color-shadow-link: var(--color-extra);
+    --color-back-link-text: var(--color-text);
+    --color-back-link-background: var(--color-text);
+    --color-back-link-hover: var(--color-text-inv);
+
+    --gradient-header: linear-gradient(90deg, hsl(137, 93%, 53%) 0%, rgba(26,223,139,1) 32%, rgba(50,171,185,1) 95%);
+}
+
+body.dark {
+    --color-main:       hsl(0, 0%, 10%);
+    --color-main-50:    hsla(0,0%,50%, 0.2);
+    --color-sec:        hsl(0, 0%, 56%);
+    --color-accent:     hsl(47, 79%, 60%);
+    --color-accent-85:  hsl(47, 79%, 60%, 0.85);
+    --color-extra:      hsl(79, 79%, 60%);
+    --color-extra-2:    hsl(141, 66%, 44%);
+    --color-border:     hsl(0, 0%, 70%);
+    --color-text:       hsl(79, 1%, 98%);
+    --color-text-50:    hsl(79, 1%, 98%, 0.5);
+}
+
+#app {
+    background: var(--color-main);
+    color: var(--color-text);
+    width: 100%;
+    min-height: 100vh;
+    padding: 0;
+    display: flex;
+}
+
+.visuallyhidden {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+
+h1 {
+    font-size: var(--text-xxl);
+    font-weight: 900;
+}
+h2 {
+    font-size: var(--text-xl);
+    font-weight: 800;
+}
+h3 {
+    font-size: var(--text-lg);
+    font-weight: 800;
+}
+h4 {
+    font-size: var(--text-base);
+    font-weight: 800;
+}
+h5 {
+    font-size: var(--text-sm);
+    font-weight: 800;
+}
+h6 {
+    font-size: var(--text-xs);
+    font-weight: 800;
+}
+
+button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+ul {
+    list-style-type: none;
+}
+
+a {
+    text-decoration: none;
+    cursor: pointer;
+}
+
+img {
+    width: 100%;
+    height: auto;
+}
+

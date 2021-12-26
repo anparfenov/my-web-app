@@ -1,0 +1,123 @@
+import axios, { AxiosRequestConfig, AxiosRequestHeaders, Method } from "axios";
+import { right, left } from "fp-ts/Either";
+// import _fetch from 'node-fetch';
+
+// console.log('globathis', globalThis);
+// if (!globalThis.fetch) {
+//     // @ts-ignore
+//     globalThis.fetch = _fetch;
+// }
+
+type Engine = "fetch" | "axios";
+const API_URL = import.meta.env.API_URL || "http://localhost:3000";
+
+export class HttpClient {
+    private _baseUrl;
+    private _url;
+    private _options: HTTP.HttpOptions;
+    private _engine: Engine;
+
+    constructor(
+        engine: Engine = "fetch",
+        baseUrl: string = API_URL as string,
+        options: HTTP.HttpOptions = { request: {} }
+    ) {
+        this._engine = engine;
+        this._baseUrl = baseUrl;
+        this._url = this._baseUrl;
+        this._options = options;
+    }
+
+    private getResponseType(headers: Headers): "json" | "text" {
+        if (headers.get("Content-Type")?.includes("application/json")) {
+            return "json";
+        }
+        return "text";
+    }
+
+    private buildQuery(query: any) {
+        const _query = new URLSearchParams(query);
+        const url = new URL(this._url);
+        url.search += _query;
+        return url.href;
+    }
+
+    private async requestWithFetch<T>(): HTTP.PromiseResult<T> {
+        console.log("request", this._url, this._options);
+        const res = await fetch(this._url, this._options.request);
+        const data = await res[this.getResponseType(res.headers)]();
+        console.log("request after");
+        if (res.ok) {
+            return right(data);
+        }
+        return left({ status: res.status, message: res.statusText });
+    }
+
+    private mapToAxiosConfig(requestInit: RequestInit): AxiosRequestConfig {
+        return {
+            method: requestInit.method as Method,
+            url: this._url,
+            headers: requestInit.headers as AxiosRequestHeaders,
+        };
+    }
+
+    private async requestWithAxios<T>(): HTTP.PromiseResult<T> {
+        try {
+            const res = await axios.request(
+                this.mapToAxiosConfig(this._options.request)
+            );
+            console.log("axios res");
+            return right(res.data);
+        } catch (e: any) {
+            console.log('e', e.status);
+            if (e.response) {
+                return left({
+                    status: e.response.status,
+                    message: e.response.data,
+                });
+            }
+            return left({
+                status: e.status,
+                message: e.message
+            });
+        }
+    }
+
+    request<T>(): HTTP.PromiseResult<T> {
+        if (this._engine === "fetch") {
+            return this.requestWithFetch<T>();
+        } else if (this._engine === "axios") {
+            return this.requestWithAxios<T>();
+        }
+        throw new TypeError("use fetch or axios engine");
+    }
+
+    url(url?: string): HttpClient {
+        if (url?.startsWith("http")) {
+            this._url = url;
+        } else {
+            this._url = this._baseUrl + url;
+        }
+        return this;
+    }
+
+    addOptions(requestOptions: RequestInit): HttpClient {
+        this._options.request = { ...this._options.request, ...requestOptions };
+        return this;
+    }
+
+    post<T>(body?: BodyInit): HTTP.PromiseResult<T> {
+        this._options.request = {
+            ...this._options.request,
+            body,
+            method: "post",
+        };
+        return this.request<T>();
+    }
+
+    read<T>(query?: any): HTTP.PromiseResult<T> {
+        this._url = this.buildQuery(query);
+        this._options.request = { ...this._options.request, method: "get" };
+        return this.request<T>();
+    }
+}
