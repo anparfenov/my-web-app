@@ -2,8 +2,8 @@ const fs = require('fs-extra');
 const path = require('path');
 const { markdownLibrary, getFrontMatter } = require('../services/markdown.js');
 
-const CACHE_FILE = path.resolve('./server/cache/cache.json');
-const DIR_PATH = path.resolve('./server/md');
+const CACHE_FILE = path.resolve('./cache.json');
+const DIR_PATH = path.resolve('../md');
 
 function buildCache() {
     if (!fs.existsSync(DIR_PATH)) {
