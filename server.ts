@@ -22,11 +22,11 @@ async function createServer(
     const resolve = (p: string) => path.resolve(__dirname, p);
 
     const indexProd = isProd
-        ? fs.readFileSync(resolve("dist/client/index.html"), "utf-8")
+        ? fs.readFileSync(resolve("../client/index.html"), "utf-8")
         : "";
 
     const manifest = isProd
-        ? require("./dist/client/ssr-manifest.json")
+        ? require("../client/ssr-manifest.json")
         : {};
 
     const app = fastify({
@@ -53,7 +53,7 @@ async function createServer(
     } else {
         app.register(fastifyCompress);
         app.register(fastifyStatic, {
-            root: resolve("dist/client"),
+            root: resolve("../client"),
             wildcard: false, // dont forget to disable wildcard, because you won't get access to GET * handler
         });
     }
@@ -77,7 +77,7 @@ async function createServer(
             } else {
                 template = indexProd;
                 // @ts-ignore
-                render = (await import("./dist/server/entry-server")).render;
+                render = (await import("../server/entry-server")).render;
             }
 
             const [appHtml, preloadLinks, initialState] = await render(url, manifest);

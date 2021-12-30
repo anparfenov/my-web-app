@@ -34,5 +34,5 @@ jobs:
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.SSH2 }}
         passphrase: ${{ secrets.PASSPHRASE }}
-        source: "./dist, ./server.js"
+        source: "./dist"
         target: "/home/asleeppiano/my-web-app"

@@ -12,6 +12,7 @@
         "types": ["node"],
         "typeRoots": ["node_modules/@types"],
         "baseUrl": ".",
+        "outDir": "./dist/ts-dist",
         "paths": {
             "@/*": ["src/*"]
         }

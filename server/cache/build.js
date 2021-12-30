@@ -6,6 +6,9 @@ const CACHE_FILE = path.resolve('./server/cache/cache.json');
 const DIR_PATH = path.resolve('./server/md');
 
 function buildCache() {
+    if (!fs.existsSync(DIR_PATH)) {
+        fs.mkdir(DIR_PATH);
+    }
     const dir = fs.readdirSync(DIR_PATH);
     let jsonList = [];
     for(let file of dir) {
