@@ -25,6 +25,8 @@ jobs:
       run: npm ci
 
     - name: Build
+      env:
+        VITE_API_URL= ${{ secrets.API_URL }}
       run: npm run build --if-present
 
     - name: Deploy
