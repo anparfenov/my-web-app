@@ -9,7 +9,7 @@ import { right, left } from "fp-ts/Either";
 // }
 
 type Engine = "fetch" | "axios";
-const API_URL = import.meta.env.API_URL || "http://localhost:3000";
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
 
 export class HttpClient {
     private _baseUrl;
