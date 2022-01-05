@@ -63,7 +63,6 @@ export function useDropdown({button, buttonClass, dropdown}: DROPDOWN.UseDropdow
      * @param { HTMLElement } button that triggers function
      */
     function toggle() {
-        console.log("toggle dropdown", _dropdown);
         if (_show.value) {
             create();
             document.addEventListener("click", handleDocClick);

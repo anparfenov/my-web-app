@@ -2,8 +2,6 @@ import { BrandGithubIcon, BrandGitlabIcon, BrandTelegramIcon, AtIcon } from "vue
 import { shallowRef } from "vue";
 import { getI18n } from "@/i18n";
 
-console.log('getI18n', getI18n());
-
 const t = getI18n().global.t;
 
 export const contacts = [

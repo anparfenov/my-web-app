@@ -36,11 +36,9 @@ function adaptToRepoStructure(repos: Array<PROJECTS.GithubRepo>): Array<PROJECTS
 }
 
 export async function fetchGithubProjects(): Promise<Array<PROJECTS.RepoStructure>> {
-    console.log('fetchAllProjects');
     const repos = await client.url(`${GITHUB_API_URL}/users/moody-person/repos`).read<PROJECTS.GithubRepo[]>();
 
     if (isRight(repos)) {
-        console.log('repos', repos);
         const filteredRepos = repos.right.filter((repo) => projects.some((project) => repo.name === project.name && project.host === 'github'))
         const langPromises = [];
         for (let repo of filteredRepos) {
@@ -49,7 +47,6 @@ export async function fetchGithubProjects(): Promise<Array<PROJECTS.RepoStructur
         }
         const languages = await Promise.all(langPromises);
         const res = filteredRepos.map((repo, i) => ({ ...repo, languages: isRight(languages[i]) ? languages[i].right : [] }));
-        console.log('projects', res);
         return adaptToRepoStructure(res);
     }
 

@@ -39,17 +39,19 @@ export const useProjectsStore = defineStore('projects', {
                     const ttl = new Date(projectsMeta._ttl);
                     if (ttl.getTime() > Date.now()) {
                         this.projects = projectsMeta.projects;
+                        this.error = null;
                     } else {
-                        this.removeProjectsFromStorate();
+                        this.removeProjectsFromStorage();
                         this.fetchAllProjects();
                     }
+                } else {
+                    this.fetchAllProjects();
                 }
-                this.error = null;
             } catch (e: any) {
                 this.error = e;
             }
         },
-        removeProjectsFromStorate() {
+        removeProjectsFromStorage() {
             localStorage.removeItem(STORAGE_ID);
         }
     },

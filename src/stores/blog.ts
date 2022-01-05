@@ -13,13 +13,10 @@ export const useBlogStore = defineStore('blog', {
     },
     actions: {
         async fetchAllBlogPosts() {
-            console.log('fetch all blog posts');
             const blogList = await blogApi.fetchAllBlogPosts();
             if (isRight(blogList)) {
-                console.log('blogList', blogList.right);
                 this.setBlogList(blogList.right)
             } else {
-                console.log('blogList err', blogList.left);
                 const blogError = blogList.left as HTTP.HttpError;
                 if (blogError.status > 299 && blogError.status < 499) {
                     this.setError('пока статей нет');
@@ -40,7 +37,6 @@ export const useBlogStore = defineStore('blog', {
             this.blogPost = payload;
         },
         setBlogList(payload: any) {
-            console.log('');
             this.blogList = payload;
         },
         setError(payload: any) {

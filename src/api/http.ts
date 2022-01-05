@@ -43,10 +43,8 @@ export class HttpClient {
     }
 
     private async requestWithFetch<T>(): HTTP.PromiseResult<T> {
-        console.log("request", this._url, this._options);
         const res = await fetch(this._url, this._options.request);
         const data = await res[this.getResponseType(res.headers)]();
-        console.log("request after");
         if (res.ok) {
             return right(data);
         }
@@ -66,10 +64,8 @@ export class HttpClient {
             const res = await axios.request(
                 this.mapToAxiosConfig(this._options.request)
             );
-            console.log("axios res");
             return right(res.data);
         } catch (e: any) {
-            console.log('e', e.status);
             if (e.response) {
                 return left({
                     status: e.response.status,

@@ -33,10 +33,8 @@ export default {
             return blogStore.fetchBlogPost(route.params.slug as string);
         })
 
-        console.log('post', post.value === undefined || post.value === null);
-        // if blog does not fetched on server side
+        // if blog didn't fetched on server side
         if (!post.value) {
-            console.log('dispatch', route.params.slug);
             blogStore.fetchBlogPost(route.params.slug as string);
         }
 
